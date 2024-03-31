@@ -1,0 +1,40 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "c_header.html" %}
+
+<h1 class="h1-title-m">Edit Song</h1>
+<form class="login" method="post" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label(class="form-control-label") }}
+        {{ form.title(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.singer.label(class="form-control-label") }}
+        {{ form.singer(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.release_date.label(class="form-control-label") }}
+        {{ form.release_date(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.lyrics.label(class="form-control-label") }}
+        {{ form.lyrics(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.genre.label(class="form-control-label") }}
+        {{ form.genre(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.audio_file.label(class="form-control-label") }}
+        {{ form.audio_file(class="form-control") }}
+    </div>
+
+    <button type="submit" class="btn btn-submit">Save Changes</button>
+</form>
+
+{% endblock %}

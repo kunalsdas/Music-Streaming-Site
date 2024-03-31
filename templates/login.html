@@ -1,0 +1,54 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Streaming Application</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <div class="background-animation1">
+    <header class="header">
+      <div class="header-title">
+        <h1><a href="/">Waves</a></h1>
+      </div>
+      <nav class="header-navigation">
+        <ul class="nav">
+          <li><a href="{{ url_for('admin_login') }}"> <button class="reg">Admin Login</button></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var snackbar = document.getElementById('snackbar');
+        snackbar.innerText = '{{ messages[0] }}';
+        snackbar.className = 'snackbar show';
+        setTimeout(function () { snackbar.className = 'snackbar'; }, 3000);
+      });
+    </script>
+    {% endif %}
+    {% endwith %}
+    <div id="snackbar"></div>
+    <h2 class="h2-login">User Login</h2>
+    <form method="POST" class="login">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+        {{ form.username(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label") }}
+        {{ form.password(class="form-control") }}
+      </div>
+      {{ form.submit(class="btn btn-submit") }}
+    </form>
+</body>
+
+</html>
+{% endblock %}

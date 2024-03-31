@@ -1,0 +1,61 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "c_header.html" %}
+
+<h1 class="h1-title-m">Add a New Album</h1>
+<form class="creator-upgrade" method="POST" action="{{ url_for('add_album') }}">
+  {{ form.hidden_tag() }}
+  <div class="form-group">
+    {{ form.title.label(class="form-control-label") }}
+    {{ form.title(class="form-control") }}
+  </div>
+  <br />
+  <div class="form-group">
+    {{ form.release_date.label(class="form-control-label") }}
+    {{ form.release_date(class="form-control") }}
+  </div>
+  <br />
+  <div class="form-group">
+    {{ form.songs.label(class="form-control-label") }}
+    {{ form.songs(class="form-control", multiple="multiple") }}
+  </div>
+
+  <br />
+
+  <button type="submit">Create Album</button>
+</form>
+
+
+
+
+<table class="content-table" id="album">
+  <thead>
+    <tr>
+      <th>Album Name</th>
+      <th>Album Release date</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for album in albums %}
+    <tr>
+      <td>{{ album.title }}</td>
+      <td>{{ album.release_date }}</td>
+      <td><a class="edit_l" href="{{ url_for('edit_album', album_id=album.id) }}"><button
+            type="submit">Edit</button></a></td>
+      <td>
+        <form method="post" action="{{ url_for('delete_album', album_id=album.id) }}">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

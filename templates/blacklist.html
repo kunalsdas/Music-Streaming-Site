@@ -1,0 +1,36 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "a_header.html" %}
+<br />
+<br />
+<br />
+<div class="container">
+    <form method="POST">
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Blacklist</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>
+                        <input type="checkbox" name="hide_songs[]" value="{{ user.id }}" {% if user.has_hidden_song %}
+                            checked {% endif %}>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+</div>
+
+{% endblock %}

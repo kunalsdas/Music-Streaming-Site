@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Streaming Application</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <div class="background-animation">
+    <header class="header">
+      <div class="header-title">
+        <h1><a href="/">Waves</a></h1>
+      </div>
+      <nav class="header-navigation">
+        <ul class="nav">
+          <li><a href="{{ url_for('admin_login') }}"> <button class="reg">Admin Login</button></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container" style="text-align: center; padding-top: 5em;">
+      <p><span id="h2-title">Welcome to Music Streaming Application</span><br /><br />
+        <span id="p-title">Discover and enjoy your favorite music. </span>
+      </p>
+      <br />
+      <div class="btn-group">
+        <a href="{{ url_for('login') }}"> <button class="log">Login</button></a>
+        <a href="{{ url_for('register') }}"> <button class="reg">Sign up</button></a>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>

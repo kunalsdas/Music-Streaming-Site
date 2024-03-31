@@ -1,0 +1,19 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "u_header.html" %}
+<br />
+<br />
+<br />
+<h1 class="vie-lyr">Lyrics</h1><br />
+<pre class="vie-lyr">{{ song.lyrics }}</pre><br /><br />
+<div style="text-align: center;">
+  <a href="{{ url_for('user_dashboard') }}"> <button>
+      Back to Dashboard
+    </button> </a>
+</div>
+
+{% endblock %}

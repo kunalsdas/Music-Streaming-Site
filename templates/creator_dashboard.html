@@ -1,0 +1,107 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "c_header.html" %}
+<br />
+<br />
+<br />
+<div class="main-dashboard" style="color: white;">
+
+  <div class="row w-row">
+    <div class="basic-column w-col w-col-3">
+      <div class="tag-wrapper">
+        <div class="number-card number-card-content1">
+          <h1 class="number-card-number">{{ total_songs }}</h1>
+          <div class="number-card-divider"></div>
+          <div class="number-card-progress-wrapper">
+            <div class="tagline number-card-currency">Total Songs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basic-column w-col w-col-3">
+      <div class="tag-wrapper">
+        <div class="number-card number-card-content2">
+          <h1 class="number-card-number"> {{average_ratings}} </h1>
+          <div class="number-card-divider"></div>
+          <div class="number-card-progress-wrapper">
+            <div class="tagline number-card-currency">Average Rating </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="basic-column w-col w-col-3">
+      <div class="tag-wrapper">
+        <div class="number-card number-card-content3">
+          <h1 class="number-card-number">{{ total_genres }}</h1>
+          <div class="number-card-divider"></div>
+          <div class="number-card-progress-wrapper">
+            <div class="tagline number-card-currency">Total Genres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="basic-column w-col w-col-3">
+      <div class="tag-wrapper">
+        <div class="number-card number-card-content4">
+          <h1 class="number-card-number">{{ total_albums }}</h1>
+          <div class="number-card-divider"></div>
+          <div class="number-card-progress-wrapper">
+            <div class="tagline number-card-currency">Total Albums</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <a href="{{ url_for('add_album') }}"> <button type="submit">Add a New Album</button></a>
+
+  <a href="{{ url_for('add_song') }}"> <button type="submit">Add a New Song</button></a>
+
+
+</div>
+
+<table class="content-table">
+  <thead>
+    <tr>
+      <th>Song Name</th>
+      <th>Singer</th>
+      <th>Genre</th>
+      <th>View Lyrics</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for song in songs %}
+    <tr>
+      <td>{{ song.title }}</td>
+      <td>{{ song.singer }}</td>
+      <td>{{ song.genre }}</td>
+
+      <td><a class="edit_l" href="{{ url_for('view_lyrics', song_id=song.id) }}"><button type="submit">View
+            Lyrics</button></a></td>
+      <td><a class="edit_l" href="{{ url_for('edit_song', song_id=song.id) }}"><button type="submit">Edit</button></a>
+      </td>
+      <td>
+        <form method="post" action="{{ url_for('delete_song', song_id=song.id) }}">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}

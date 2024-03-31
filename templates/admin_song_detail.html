@@ -1,0 +1,43 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "a_header.html" %}
+
+<div class="container">
+  <br>
+  <div class="song-details-container">
+    <div class="rate-song-section">
+
+      <h1 style="color: white;">
+        Rating: {{existing_rating.rating}}/5
+      </h1>
+      <div class="audio-player">
+        <audio controls>
+          <source src="{{ url_for('static', filename='songs/' + song.audio_file) }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <br>
+      <div style="text-align: left;">
+        <a href="{{ url_for('admin_dashboard') }}"> <button>
+            Back to Dashboard
+          </button> </a>
+      </div>
+    </div>
+
+    <div class="song-info-section">
+      <div class="song-card-1">
+        <h3 id="detail-h3">{{ song.title }}</h3>
+        <p id="detail-p">Artist: {{ song.singer }} | {{ song.release_date }}</p>
+        <div class="song-card-2">
+          <pre class="vie-lyr">{{ song.lyrics }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

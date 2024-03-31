@@ -1,0 +1,40 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "c_header.html" %}
+
+<h1 class="h1-title-m">Edit Album</h1>
+<form class="creator-upgrade" method="POST" action="{{ url_for('edit_album', album_id=album.id) }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.title.label(class="form-control-label") }}
+        {{ form.title() }}
+    </div>
+    <br />
+    <div class="form-group">
+        {{ form.release_date.label(class="form-control-label") }}
+        {{ form.release_date() }}
+    </div>
+    <br />
+    <div class="form-group">
+        {{ form.songs.label(class="form-control-label") }}
+        {% for song in songs %}
+        <label style="color: white;">
+            <input type="checkbox" name="songs" value="{{ song.id }}" {% if song in album.songs %}checked{% endif %}> {{
+            song.title }}
+        </label>
+        {% endfor %}
+    </div>
+    <br />
+
+    <button type="submit">Update Album</button>
+</form>
+<div style="text-align: center;">
+    <a href="{{ url_for('creator_dashboard') }}"><button>Back to Creator Dashboard</button> </a>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Streaming Application</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <div class="background-animation1">
+    <header class="header">
+      <div class="header-title">
+        <h1><a href="/">Waves</a></h1>
+      </div>
+      <nav class="header-navigation">
+        <ul class="nav">
+          <li><a href="{{ url_for('admin_login') }}"> <button class="reg">Admin Login</button></a></li>
+        </ul>
+      </nav>
+    </header>
+
+    {% if form.errors %}
+    <div id="error-snackbar" class="snackbar show">
+      {{ form.errors|join(', ') }}
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var errorSnackbar = document.getElementById('error-snackbar');
+        setTimeout(function () { errorSnackbar.className = 'snackbar'; }, 5000); // 5000ms = 5 seconds
+      });
+    </script>
+    {% endif %}
+
+    <h2 class="h2-register">Sign Up</h2><br />
+    <form method="POST" class="register">
+      {{ form.hidden_tag() }}
+      <div class="form-group">
+        {{ form.username.label(class="form-control-label") }}
+        {{ form.username(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.email.label(class="form-control-label") }}
+        {{ form.email(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.password.label(class="form-control-label") }}
+        {{ form.password(class="form-control") }}
+      </div>
+      <div class="form-group">
+        {{ form.confirm_password.label(class="form-control-label") }}
+        {{ form.confirm_password(class="form-control") }}
+      </div>
+      {{ form.submit(class="btn btn-submit") }}
+    </form>
+</body>
+
+</html>
+{% endblock %}

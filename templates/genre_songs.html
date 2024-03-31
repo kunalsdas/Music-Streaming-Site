@@ -1,0 +1,31 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% include "u_header.html" %}
+
+<div class="container">
+
+    <h1 class="playlist-dash">Genre: {{ title }} </h1>
+    <h1 class="playlist-dash-1"> <a href="{{ url_for('user_dashboard') }}"> <button>
+                Back to Dashboard
+            </button> </a> </h1>
+
+
+    <div class="song-slider-container">
+        {% for song in songs %}
+        <a style="color: black;" href="{{ url_for('rate_song', song_id=song.id) }}">
+            <div class="song-card">
+                <h3>{{ song.title }}</h3>
+                <p>Artist: {{ song.singer }}</p>
+                <a href="{{ url_for('view_lyrics', song_id=song.id) }}">
+                    <button> View Lyrics</button>
+                </a>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

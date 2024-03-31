@@ -1,0 +1,41 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+{% include "a_header.html" %}
+<br />
+<br />
+<br />
+<div class="container">
+
+  <h1 style="color: white;">Albums</h1>
+  <table class="content-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Release Date</th>
+        <th>songs</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for album in albums %}
+      <tr>
+        <td>{{ album.title }}</td>
+        <td>{{ album.release_date }}</td>
+        <td>
+          <ul>
+            {% for song in album.songs %}
+            <li><a href="{{url_for('admin_song_detail', song_id=song.id)}}">{{ song.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{{ url_for('admin_dashboard') }}">
+    <button>Back to Admin Dashboard</button>
+  </a>
+</div>
+{% endblock %}

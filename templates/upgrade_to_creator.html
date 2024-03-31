@@ -1,0 +1,18 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+{% include "u_header.html" %}
+
+<br /><br /><br /><br />
+<div class="container creator-upgrade" style="text-align: center; padding-top: 5em;">
+  <p><span id="h2-title">Register as Creator</span><br /><br />
+    <span id="p-title">Create new Songs, Albums and much more </span>
+  </p>
+  <br />
+  <a href="{{ url_for('register_as_creator') }}"> <i class="fa fa-plus-circle fa_custom fa-5x"></i></a>
+</div>
+
+{% endblock %}

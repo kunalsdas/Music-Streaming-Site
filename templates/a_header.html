@@ -1,0 +1,20 @@
+<header class="header">
+  <div class="header-title">
+    <h1><a href="{{url_for('admin_dashboard')}}">Administrator Dashboard</a></h1>
+  </div>
+
+  <nav class="header-navigation">
+    <ul class="nav">
+      <li>
+        <a href="{{ url_for('admin_songs') }}" class="btn">Songs</a>
+      </li>
+      <li>
+        <a href="{{ url_for('view_albums') }}" class="btn">Albums</a>
+      </li>
+      <li style="border: 1px solid grey;padding: 0.4em;border-radius: 1em;">{% if current_user.is_authenticated %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,240 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+{% include "u_header.html" %}
+<br>
+<p style="text-align: center;"><span id="h2-title">Welcome to Waves</span><br /><br />
+<div class="container">
+    <h1 style="color: white;">Recommended Songs</h1>
+    <div class="cont">
+        <div class="song-slider-container">
+            {% for song in top_rated_songs %}
+            <a style="color: black;" href="{{ url_for('rate_song', song_id=song.id) }}">
+                <div class="song-card3">
+                    <h3>{{ song.title }}</h3>
+                    <p>Artist: {{ song.singer }}</p>
+                    <p>Genre: {{ song.genre }}</p>
+                    <a href="{{ url_for('view_lyrics1', song_id=song.id) }}">
+                        <button> View Lyrics</button> </a>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <button class="prev-btn" onclick="prevSong1()">
+            < </button>
+                <button class="next-btn" onclick="nextSong1()">></button>
+    </div>
+    <br />
+
+    <h1 class="playlist-dash">Your Playlist</h1>
+    <h1 class="playlist-dash-1"> <a href="{{ url_for('create_playlist') }}">
+            <button>
+                Add new Playlist
+            </button> </a> </h1>
+
+    <div class="cont">
+        <div class="song-slider-container">
+            {% for playlist in playlists %}
+            <div class="song-card2">
+                <h3>{{ playlist.title }}</h3>
+                <p>Songs:</p>
+                <ul>
+                    {% for song in playlist.songs %}
+                    <li>
+                        <i>{{ song.title }}</i>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <form method="post" action="{{ url_for('delete_playlist', playlist_id=playlist.id) }}">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button class="prev-btn" onclick="prevSong_1()">
+            < </button>
+                <button class="next-btn" onclick="nextSong_1()">></button>
+    </div>
+
+    <h1 style="color: white;">Genre</h1>
+
+    <div class="cont">
+        <div class="song-slider-container">
+            {% for genre in unique_genres %}
+            <a style="color: black;" href="{{ url_for('genre_songs', selected_genre=genre) }}">
+                <div class="song-card_">
+                    <h3>{{ genre }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <button class="prev-btn" onclick="preSong()">
+            < </button>
+                <button class="next-btn" onclick="nexSong()">></button>
+    </div>
+
+
+
+    <h1 style="color: white;">All Songs</h1>
+
+    <div class="cont">
+        <div class="song-slider-container">
+            {% for song in songs %}
+            <a style="color: black;" href="{{ url_for('rate_song', song_id=song.id) }}">
+                <div class="song-card">
+                    <h3>{{ song.title }}</h3>
+                    <p>Artist: {{ song.singer }}</p>
+                    <p>Genre: {{ song.genre }}</p>
+                    <a href="{{ url_for('view_lyrics1', song_id=song.id) }}">
+                        <button> View Lyrics</button> </a>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <button class="prev-btn" onclick="prevSong()">
+            < </button>
+                <button class="next-btn" onclick="nextSong()">></button>
+    </div>
+
+    <h1 style="color: white;">All Albums</h1>
+    <div class="cont">
+        <div class="song-slider-container">
+            {% for album in albums %}
+            <div class="song-card1">
+                <h3>{{ album.title }}</h3>
+                <a href="{{ url_for('album_songs', album_id=album.id) }}"><button>View Songs</button></a>
+
+            </div>
+
+            {% endfor %}
+        </div>
+        <button class="prev-btn" onclick="prevSong_()">
+            < </button>
+                <button class="next-btn" onclick="nextSong_()">></button>
+    </div>
+</div>
+<script>
+    //genres
+    let currentIndex = 0;
+    const songCards_ = document.querySelectorAll('.song-card_');
+
+    function shoSong(index) {
+        songCards_.forEach(card => card.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function preSong() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            shoSong(currentIndex);
+        }
+    }
+
+    function nexSong() {
+        if (currentIndex < songCards_.length - 1) {
+            currentIndex++;
+            shoSong(currentIndex);
+        }
+    }
+
+    shoSong(currentIndex);
+
+    //songs
+    const songCards = document.querySelectorAll('.song-card');
+
+    function showSong(index) {
+        songCards.forEach(card => card.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function prevSong() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showSong(currentIndex);
+        }
+    }
+
+    function nextSong() {
+        if (currentIndex < songCards.length - 1) {
+            currentIndex++;
+            showSong(currentIndex);
+        }
+    }
+
+    showSong(currentIndex);
+
+    //album
+    const songCards1 = document.querySelectorAll('.song-card1');
+
+    function showSong1(index) {
+        songCards1.forEach(card => card.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function prevSong_() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showSong1(currentIndex);
+        }
+    }
+
+    function nextSong_() {
+        if (currentIndex < songCards1.length - 1) {
+            currentIndex++;
+            showSong1(currentIndex);
+        }
+    }
+
+    showSong1(currentIndex);
+
+    //playlist
+    const songCards2 = document.querySelectorAll('.song-card2');
+
+    function showSong2(index) {
+        songCards2.forEach(card => card.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function prevSong_1() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showSong2(currentIndex);
+        }
+    }
+
+    function nextSong_1() {
+        if (currentIndex < songCards2.length - 1) {
+            currentIndex++;
+            showSong2(currentIndex);
+        }
+    }
+
+    showSong2(currentIndex);
+
+    //recommendedsong
+    const songCards3 = document.querySelectorAll('.song-card3');
+
+    function showSong3(index) {
+        songCards3.forEach(card => card.style.transform = `translateX(-${index * 100}%)`);
+    }
+
+    function prevSong1() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showSong3(currentIndex);
+        }
+    }
+
+    function nextSong1() {
+        if (currentIndex < songCards3.length - 1) {
+            currentIndex++;
+            showSong3(currentIndex);
+        }
+    }
+
+    showSong3(currentIndex);
+
+</script>
+
+{% endblock %}

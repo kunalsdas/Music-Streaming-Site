@@ -1,0 +1,49 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "u_header.html" %}
+
+<div class="container">
+  <br>
+  <div class="song-details-container">
+    <div class="rate-song-section">
+      <h2 style="color: white;">Rate Song: {{ song.title }}</h2>
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.rating.label(class="form-control-label") }}
+          {{ form.rating(class="form-control") }}
+        </div>
+        <button type="submit">Submit Rating</button>
+      </form>
+
+      <div class="audio-player">
+        <audio controls>
+          <source src="{{ url_for('static', filename='songs/' + song.audio_file) }}" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      <br>
+      <div style="text-align: left;">
+        <a href="{{ url_for('user_dashboard') }}"> <button>
+            Back to Dashboard
+          </button> </a>
+      </div>
+    </div>
+
+    <div class="song-info-section">
+      <div class="song-card-1">
+        <h3 id="detail-h3">{{ song.title }}</h3>
+        <p id="detail-p">Artist: {{ song.singer }} | {{ song.release_date }}</p>
+        <div class="song-card-2">
+          <pre class="vie-lyr">{{ song.lyrics }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

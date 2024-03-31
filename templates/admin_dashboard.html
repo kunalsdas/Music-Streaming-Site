@@ -1,0 +1,108 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+{% endblock %}
+
+{% block content %}
+
+{% include "a_header.html" %}
+  <br/>
+  <br/>
+  <br/>
+  
+  
+    <div class="main-dashboard" style="color: white;">
+  
+  <div class="row w-row">
+    <div class="basic-column w-col w-col-3">
+        <div class="tag-wrapper">
+            <div class="number-card number-card-content1">
+                <h1 class="number-card-number">{{ normal_user_count }}</h1>
+                <div class="number-card-divider"></div>
+                <div class="number-card-progress-wrapper">
+                    <div class="tagline number-card-currency">Normal User</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <a href="{{url_for('blacklist')}}">
+    <div class="basic-column w-col w-col-3">
+      <div class="tag-wrapper">
+          <div class="number-card number-card-content2">
+              <h1 class="number-card-number"> {{creator_count}} </h1>
+              <div class="number-card-divider"></div>
+              <div class="number-card-progress-wrapper">
+                  <div class="tagline number-card-currency">Creators </div>
+              </div>
+          </div>
+      </div>
+    </div>
+</a>
+
+
+<div class="basic-column w-col w-col-3">
+    <div class="tag-wrapper">
+        <div class="number-card number-card-content3">
+            <h1 class="number-card-number">{{ total_songs }}</h1>
+            <div class="number-card-divider"></div>
+            <div class="number-card-progress-wrapper">
+                <div class="tagline number-card-currency">Total Songs</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  
+    <div class="basic-column w-col w-col-3">
+        <div class="tag-wrapper">
+            <div class="number-card number-card-content4">
+                <h1 class="number-card-number">{{ total_albums }}</h1>
+                <div class="number-card-divider"></div>
+                <div class="number-card-progress-wrapper">
+                    <div class="tagline number-card-currency">Total Albums</div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  <div class="container" style="height: 80vh;">
+  <canvas id="adminChart" width="200" height="200"></canvas>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+      var ctx = document.getElementById('adminChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: ['Normal Users', 'Creators', 'Total Songs', 'Total Albums','Total Genre'],
+              datasets: [{
+                  label: 'Count',
+                  data: [{{ normal_user_count }}, {{ creator_count }}, {{ total_songs }}, {{ total_albums }},{{total_genres}}],
+                  backgroundColor: [
+                      'rgba(255, 99, 132, 0.2)',
+                      'rgba(54, 162, 235, 0.2)',
+                      'rgba(255, 206, 86, 0.2)',
+                      'rgba(75, 192, 192, 0.2)',
+                      'rgba(75, 19, 192, 0.2)',
+                  ],
+                  borderColor: [
+                      'rgba(255, 99, 132, 1)',
+                      'rgba(54, 162, 235, 1)',
+                      'rgba(255, 206, 86, 1)',
+                      'rgba(75, 192, 192, 1)',
+                      'rgba(75, 19, 192, 1)',
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+      });
+  </script>
+
+{% endblock %}

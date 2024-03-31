@@ -1,0 +1,25 @@
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+{% include "u_header.html" %}
+<br>
+<p style="text-align: center;"><span id="h2-title">Profile</span><br /><br />
+
+
+<div class="container" style="color: white;">
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Role:</strong> {{ user.role }}</p>
+  <br>
+  <a href="{{ url_for('user_dashboard') }}"> <button>
+      Back to Dashboard
+    </button> </a>
+
+</div>
+
+
+{% endblock %}
